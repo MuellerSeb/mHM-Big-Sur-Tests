@@ -31,7 +31,7 @@ jobs:
           show-channel-urls: true
           use-only-tar-bz2: true
       - run: |
-          conda install -y cmake make fortran-compiler netcdf-fortran fypp
+          conda install -y cmake make fortran-compiler netcdf-fortran=4.5.3 fypp
           cd mhm
           cmake -B build -DCMAKE_BUILD_TYPE=Release
           cmake --build build --parallel
