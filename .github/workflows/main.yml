@@ -1,0 +1,36 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - "main"
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build_macOS:
+    name: Build on macOS
+    runs-on: macos-11
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: mhm
+          python-version: 3.6
+          channels: conda-forge
+          allow-softlinks: true
+          channel-priority: strict
+          show-channel-urls: true
+          use-only-tar-bz2: true
+      - run: |
+          conda install -y cmake make fortran-compiler netcdf-fortran fypp
+          git clone https://git.ufz.de/mhm/mhm.git
+          cd mhm
+          source CI-scripts/compile
