@@ -44,3 +44,17 @@ jobs:
           cd mhm
           cmake -B build -DCMAKE_BUILD_TYPE=Release -DCPM_forces_SOURCE=../../../forces
           cmake --build build --parallel
+
+  build_macOS_brew:
+    name: Build on macOS with homebrew
+    runs-on: macos-11
+    steps:
+      - uses: actions/checkout@v2
+      - name: install
+        run: |
+          brew install gcc netcdf
+      - name: compile mhm
+        run: |
+          cd mhm
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCPM_forces_SOURCE=../../../forces
+          cmake --build build --parallel
