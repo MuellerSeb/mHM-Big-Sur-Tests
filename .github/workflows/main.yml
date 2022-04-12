@@ -53,6 +53,7 @@ jobs:
       - name: install
         run: |
           brew install gcc netcdf
+          export FC=gfortran
       - name: compile mhm
         run: |
           cd mhm
