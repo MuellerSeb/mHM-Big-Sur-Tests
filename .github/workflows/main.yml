@@ -30,8 +30,17 @@ jobs:
           channel-priority: strict
           show-channel-urls: true
           use-only-tar-bz2: true
-      - run: |
-          conda install -y cmake make fortran-compiler netcdf-fortran=4.5.3 fypp
+      - name: install
+        run: |
+          conda install -y fypp cmake make fortran-compiler netcdf-fortran=4.5.3
+      - name: conda list
+        run: |
+          conda list
+      - name: conda info
+        run: |
+          conda info
+      - name: compile mhm
+        run: |
           cd mhm
-          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCPM_forces_SOURCE=../forces
           cmake --build build --parallel
