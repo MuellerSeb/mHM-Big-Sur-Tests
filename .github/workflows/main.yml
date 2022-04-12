@@ -34,4 +34,4 @@ jobs:
           conda install -y cmake make fortran-compiler netcdf-fortran fypp
           cd mhm
           cmake -B build -DCMAKE_BUILD_TYPE=Release
-          cmake --build --parallel
+          cmake --build build --parallel
