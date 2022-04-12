@@ -39,12 +39,14 @@ else()
 endif()
 
 # find the netcdf and netcdf-fortran libraries quietly, taken from ecmwf project
-find_package(NetCDF COMPONENTS Fortran QUIET)
+# find_package(NetCDF COMPONENTS Fortran QUIET)
+set (NETCDF_F90 "YES")
+find_package (NetCDF REQUIRED)
 # Sometimes NetCDF_INCLUDE_DIRS can't be found but NetCDF_Fortran is still usable
 if(NOT NetCDF_Fortran_FOUND)
   message(FATAL_ERROR "FORCES: NetCDF-Fortran not usable")
 else()
-  message(STATUS "FORCES: NetCDF-Fortran usable: ${NetCDF_Fortran_LIBRARY}")
+  message(STATUS "FORCES: NetCDF-Fortran usable: ${NETCDF_F90_LIBRARIES}")
 endif()
 target_link_libraries(${LIB_NAME} PUBLIC NetCDF::NetCDF_Fortran)
 
