@@ -42,5 +42,5 @@ jobs:
       - name: compile mhm
         run: |
           cd mhm
-          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCPM_forces_SOURCE=../forces
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCPM_forces_SOURCE=../../../forces
           cmake --build build --parallel
