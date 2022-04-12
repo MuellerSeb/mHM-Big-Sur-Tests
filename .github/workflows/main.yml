@@ -20,6 +20,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
+      - uses: actions/checkout@v2
       - uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: mhm
@@ -31,6 +32,6 @@ jobs:
           use-only-tar-bz2: true
       - run: |
           conda install -y cmake make fortran-compiler netcdf-fortran fypp
-          git clone https://git.ufz.de/mhm/mhm.git
           cd mhm
-          source CI-scripts/compile
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build --parallel
