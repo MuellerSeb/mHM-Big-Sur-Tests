@@ -55,7 +55,7 @@ jobs:
           brew install gcc netcdf
       - name: compile mhm
         env:
-          FC: gfortran
+          FC: gfortran-11
         run: |
           cd mhm
           cmake -B build -DCMAKE_BUILD_TYPE=Release -DCPM_forces_SOURCE=../../../forces
