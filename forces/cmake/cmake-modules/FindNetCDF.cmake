@@ -1,4 +1,9 @@
 # safely find netcdf c/fortran
+# To specify a particular NetCDF library, use
+#
+#     cmake -DNetCDF_ROOT=/path/to/netcdff -B build
+#
+# or set environment variable NetCDF_ROOT=/path/to/netcdff
 
 # function to search for netcdf-C
 function(search_netcdf_c)
@@ -10,10 +15,7 @@ function(search_netcdf_c)
   # include dirs
   find_path(NetCDF_C_INCLUDE_DIR
     NAMES netcdf.h
-    HINTS "${NETCDF_DIR}/include"
-          "$ENV{NETCDF_DIR}/include"
-          "${pkg_conf_nc_INCLUDE_DIRS}"
-    DOC "NetCDF-C include dir"
+    HINTS ${pkg_conf_nc_INCLUDE_DIRS}
   )
   if(NOT NetCDF_C_INCLUDE_DIR)
     return()
@@ -22,11 +24,7 @@ function(search_netcdf_c)
   # library
   find_library(NetCDF_C_LIBRARY
     NAMES netcdf
-    HINTS "${NETCDF_DIR}/lib"
-          "$ENV{NETCDF_DIR}/lib"
-          "${pkg_conf_nc_LIBRARY_DIRS}"
-          "${pkg_conf_nc_LIBDIR}"
-    DOC "NetCDF-C library"
+    HINTS ${pkg_conf_nc_LIBRARY_DIRS} ${pkg_conf_nc_LIBDIR}
   )
   if(NOT NetCDF_C_LIBRARY)
     return()
@@ -49,11 +47,7 @@ function(search_netcdf_fortran)
   # include dirs
   find_path(NetCDF_Fortran_INCLUDE_DIR
     names netcdf.mod
-    HINTS "${NETCDF_FORTRAN_DIR}/include"
-          "$ENV{NETCDF_FORTRAN_DIR}/include"
-          "${pkg_conf_nf_INCLUDE_DIRS}"
-          "${NetCDF_C_INCLUDE_DIR}"
-    DOC "NetCDF-Fortran Include dir"
+    HINTS ${pkg_conf_nf_INCLUDE_DIRS}
   )
   if(NOT NetCDF_Fortran_INCLUDE_DIR)
     return()
@@ -63,12 +57,7 @@ function(search_netcdf_fortran)
   get_filename_component (NetCDF_lib_dirs "${NetCDF_C_LIBRARY}" PATH)
   find_library(NetCDF_Fortran_LIBRARY
     NAMES netcdff
-    HINTS "${NetCDF_lib_dirs}"
-          "${NETCDF_FORTRAN_DIR}/lib"
-          "$ENV{NETCDF_FORTRAN_DIR}/lib"
-          "${pkg_conf_nf_LIBRARY_DIRS}"
-          "${pkg_conf_nf_LIBDIR}"
-    DOC "NetCDF Fortran library"
+    HINTS ${pkg_conf_nf_LIBRARY_DIRS} ${pkg_conf_nf_LIBDIR}
   )
   if(NOT NetCDF_Fortran_LIBRARY)
     return()
