@@ -54,7 +54,6 @@ function(search_netcdf_fortran)
   endif()
 
   # library
-  get_filename_component (NetCDF_lib_dirs "${NetCDF_C_LIBRARY}" PATH)
   find_library(NetCDF_Fortran_LIBRARY
     NAMES netcdff
     HINTS ${pkg_conf_nf_LIBRARY_DIRS} ${pkg_conf_nf_LIBDIR}
